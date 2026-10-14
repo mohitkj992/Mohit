@@ -1,0 +1,1358 @@
+
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gloace Technologies | Authorized Zoho Partner & Enterprise Cloud Solutions</title>
+  
+  <link rel="canonical" href="https://www.gloacetechnologies.com">
+  <meta name="description" content="Gloace Technologies is an Authorized Zoho Partner providing enterprise Zoho CRM, Creator custom applications, Deluge scripting, and bespoke software engineering. Visit www.gloacetechnologies.com.">
+  <meta property="og:url" content="https://www.gloacetechnologies.com">
+  <meta property="og:site_name" content="Gloace Technologies">
+  
+  <!-- Gotham Geometric Typography (Montserrat loaded as primary web-safe Gotham equivalent) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Gotham"', '"Montserrat"', 'system-ui', '-apple-system', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#eef6ff',
+              100: '#d9ebff',
+              200: '#bcdbff',
+              300: '#8ec3ff',
+              400: '#59a0ff',
+              500: '#1e6fe8',
+              600: '#1357c9',
+              700: '#1045a3',
+              800: '#113a85',
+              900: '#13336f',
+              950: '#0b1f47',
+            },
+            zoho: {
+              red: '#f14336',
+              green: '#2ba84a',
+              blue: '#0d76bf',
+              yellow: '#f8b42c'
+            }
+          },
+          boxShadow: {
+            'glow': '0 0 40px -10px rgba(30, 111, 232, 0.35)',
+            'card': '0 10px 30px -5px rgba(0, 0, 0, 0.05), 0 4px 10px -2px rgba(0, 0, 0, 0.02)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @font-face {
+      font-family: 'Gotham';
+      font-weight: 400;
+      font-style: normal;
+      src: local('Gotham'), local('Gotham-Book'), local('Montserrat');
+    }
+    @font-face {
+      font-family: 'Gotham';
+      font-weight: 700;
+      font-style: normal;
+      src: local('Gotham-Bold'), local('Montserrat-Bold');
+    }
+
+    body {
+      font-family: 'Gotham', 'Montserrat', system-ui, -apple-system, sans-serif;
+      letter-spacing: -0.015em;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.35; transform: scale(1); }
+      50% { opacity: 0.75; transform: scale(1.06); }
+    }
+    .animate-pulse-glow {
+      animation: pulseGlow 8s ease-in-out infinite;
+    }
+    
+    .glass-card {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(226, 232, 240, 0.9);
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 7px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f8fafc;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-brand-600 selection:text-white">
+
+  <!-- Floating Feedback / Toast Container (Strictly avoiding native alert) -->
+  <div id="toastMessage" class="fixed top-5 right-5 z-50 transform translate-y-[-120%] opacity-0 transition-all duration-300 pointer-events-none">
+    <div class="flex items-center gap-3 px-5 py-3.5 bg-slate-900 text-white rounded-xl shadow-2xl border border-slate-700/60 max-w-md">
+      <div id="toastIcon" class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+        <i class="fa-solid fa-check"></i>
+      </div>
+      <div>
+        <p id="toastTitle" class="text-sm font-bold tracking-tight">Notification</p>
+        <p id="toastBody" class="text-xs text-slate-300">Your message has been processed successfully.</p>
+      </div>
+      <button onclick="hideToast()" class="ml-2 text-slate-400 hover:text-white pointer-events-auto p-1 rounded-lg">
+        <i class="fa-solid fa-xmark text-sm"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Official Zoho Partner Banner -->
+  <div class="bg-gradient-to-r from-slate-950 via-slate-900 to-brand-950 text-xs text-slate-200 py-2.5 px-4 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2.5">
+      <div class="flex items-center gap-2.5 flex-wrap justify-center sm:justify-start">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-amber-500/20 text-amber-300 border border-amber-500/30">
+          <i class="fa-solid fa-handshake text-xs"></i> Official Partner
+        </span>
+        <span class="font-medium">
+          Gloace Technologies is an 
+          <strong class="text-white font-bold">Authorized Zoho Partner</strong> 
+          delivering customized Zoho One, Creator, CRM & Cloud Implementations.
+        </span>
+      </div>
+      <div class="hidden md:flex items-center gap-4 text-[11px] text-slate-400">
+        <span class="flex items-center gap-1.5"><i class="fa-solid fa-certificate text-emerald-400"></i> Certified Zoho Experts</span>
+        <span class="text-slate-700">•</span>
+        <span class="flex items-center gap-1.5"><i class="fa-solid fa-headset text-brand-400"></i> End-to-End SLA Support</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation Header -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-sm" id="mainHeader">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Logo -->
+      <a href="#home" class="flex items-center gap-3 group">
+        <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-brand-600 to-indigo-600 flex items-center justify-center text-white shadow-md shadow-brand-500/30 group-hover:scale-105 transition-transform">
+          <i class="fa-solid fa-cubes-stacked text-xl"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-1.5">
+            <span class="text-xl font-extrabold tracking-tight text-slate-900">Gloace</span>
+            <span class="text-xl font-bold tracking-tight text-brand-600">Technologies</span>
+          </div>
+          <div class="flex items-center gap-1.5 mt-0.5">
+            <span class="text-[9px] uppercase tracking-wider font-extrabold text-amber-600 bg-amber-50 border border-amber-200 px-1.5 py-0.2 rounded">Zoho Partner</span>
+            <span class="text-[10px] uppercase tracking-wider font-semibold text-slate-400">• Software & AI</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Menu -->
+      <nav class="hidden lg:flex items-center gap-7">
+        <a href="#zoho" class="text-sm font-bold text-amber-600 hover:text-amber-700 flex items-center gap-1.5">
+          <i class="fa-solid fa-award text-xs"></i> Zoho Solutions
+        </a>
+        <a href="#services" class="text-sm font-semibold text-slate-600 hover:text-brand-600 transition-colors">Services</a>
+        <a href="#solutions" class="text-sm font-semibold text-slate-600 hover:text-brand-600 transition-colors">Enterprise AI</a>
+        <a href="#stack" class="text-sm font-semibold text-slate-600 hover:text-brand-600 transition-colors">Tech Stack</a>
+        <a href="#projects" class="text-sm font-semibold text-slate-600 hover:text-brand-600 transition-colors">Case Studies</a>
+        <a href="#methodology" class="text-sm font-semibold text-slate-600 hover:text-brand-600 transition-colors">Process</a>
+      </nav>
+
+      <!-- Action Button -->
+      <div class="hidden sm:flex items-center gap-3">
+        <a href="#contact" class="px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold uppercase tracking-wider transition shadow-md shadow-brand-500/25 hover:shadow-brand-500/40 inline-flex items-center gap-2">
+          <span>Book Consultation</span>
+          <i class="fa-solid fa-arrow-right text-xs"></i>
+        </a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button id="mobileMenuBtn" class="lg:hidden p-2 rounded-xl text-slate-700 hover:bg-slate-100 focus:outline-none" aria-label="Toggle Navigation">
+        <i class="fa-solid fa-bars text-xl"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobileMenu" class="hidden lg:hidden border-t border-slate-200 bg-white px-6 py-6 space-y-4 shadow-xl">
+      <div class="flex flex-col space-y-3 font-semibold text-slate-700">
+        <a href="#zoho" class="mobile-nav-link text-amber-600 py-1.5 flex items-center justify-between font-bold">
+          <span>Zoho Partner Solutions</span>
+          <i class="fa-solid fa-award"></i>
+        </a>
+        <a href="#services" class="mobile-nav-link hover:text-brand-600 py-1">Services & Capabilities</a>
+        <a href="#solutions" class="mobile-nav-link hover:text-brand-600 py-1">Enterprise AI Solutions</a>
+        <a href="#stack" class="mobile-nav-link hover:text-brand-600 py-1">Technologies & Platforms</a>
+        <a href="#projects" class="mobile-nav-link hover:text-brand-600 py-1">Recent Projects</a>
+        <a href="#methodology" class="mobile-nav-link hover:text-brand-600 py-1">Our Methodology</a>
+      </div>
+      <div class="pt-4 border-t border-slate-100">
+        <a href="#contact" class="mobile-nav-link w-full py-3 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs uppercase tracking-wider text-center flex items-center justify-center gap-2">
+          <span>Request Technical Proposal</span>
+          <i class="fa-solid fa-paper-plane text-xs"></i>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="home" class="relative pt-12 pb-20 md:pt-20 md:pb-28 overflow-hidden bg-gradient-to-b from-brand-50/70 via-white to-slate-50">
+    <!-- Ambient Blur Background Elements -->
+    <div class="absolute top-10 left-1/2 -translate-x-1/2 w-[650px] h-[320px] bg-gradient-to-tr from-brand-400/20 to-indigo-300/20 blur-3xl rounded-full pointer-events-none -z-10 animate-pulse-glow"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Left Content -->
+        <div class="lg:col-span-7 text-center lg:text-left space-y-6">
+          <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white text-slate-800 text-xs font-bold border border-slate-200/90 shadow-sm">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>Authorized Zoho Partner & Custom Software Engineering</span>
+          </div>
+
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.12]">
+            Transforming Enterprises with 
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 via-indigo-600 to-brand-500">
+              Zoho Ecosystems
+            </span> 
+            & Intelligent Software.
+          </h1>
+
+          <p class="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal">
+            Gloace Technologies engineers bespoke web platforms, AI automations, scalable cloud infrastructure, and certified enterprise Zoho CRM & Creator architectures tailored for peak performance.
+          </p>
+
+          <!-- CTAs -->
+          <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+            <a href="#contact" class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs uppercase tracking-wider transition shadow-lg shadow-brand-500/30 flex items-center justify-center gap-2 group">
+              <span>Schedule Zoho & Tech Audit</span>
+              <i class="fa-solid fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i>
+            </a>
+            <a href="#zoho" class="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-white hover:bg-slate-100 text-slate-800 font-bold text-xs uppercase tracking-wider border border-slate-200 shadow-sm transition flex items-center justify-center gap-2">
+              <i class="fa-solid fa-award text-amber-500"></i>
+              <span>Explore Zoho Services</span>
+            </a>
+          </div>
+
+          <!-- Feature Badges -->
+          <div class="pt-6 border-t border-slate-200/80 grid grid-cols-1 sm:grid-cols-3 gap-4 text-left">
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center text-sm shrink-0 mt-0.5">
+                <i class="fa-solid fa-shield-halved"></i>
+              </div>
+              <div>
+                <h4 class="text-xs font-bold text-slate-900">Zoho Certified</h4>
+                <p class="text-[11px] text-slate-500">Creator, CRM & Deluge experts</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-lg bg-brand-100 text-brand-600 flex items-center justify-center text-sm shrink-0 mt-0.5">
+                <i class="fa-solid fa-bolt"></i>
+              </div>
+              <div>
+                <h4 class="text-xs font-bold text-slate-900">Full-Cycle Builds</h4>
+                <p class="text-[11px] text-slate-500">Web, mobile & API integrations</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-600 flex items-center justify-center text-sm shrink-0 mt-0.5">
+                <i class="fa-solid fa-robot"></i>
+              </div>
+              <div>
+                <h4 class="text-xs font-bold text-slate-900">AI-First Delivery</h4>
+                <p class="text-[11px] text-slate-500">Autonomous workflow pipelines</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Interactive Showcase Card -->
+        <div class="lg:col-span-5 relative">
+          <div class="relative mx-auto max-w-md lg:max-w-none">
+            <!-- Decorative badge -->
+            <div class="absolute -top-4 -left-4 z-20 bg-slate-900 text-white text-xs px-4 py-2 rounded-xl shadow-lg flex items-center gap-2 border border-slate-700">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+              <span class="font-bold">Zoho Certified Implementation</span>
+            </div>
+
+            <!-- Terminal / Architecture Mock Card -->
+            <div class="glass-card rounded-2xl p-6 shadow-2xl relative border border-slate-200/90 overflow-hidden">
+              <div class="flex items-center justify-between border-b border-slate-200/80 pb-4 mb-4">
+                <div class="flex items-center gap-2">
+                  <span class="w-3 h-3 rounded-full bg-rose-400"></span>
+                  <span class="w-3 h-3 rounded-full bg-amber-400"></span>
+                  <span class="w-3 h-3 rounded-full bg-emerald-400"></span>
+                </div>
+                <div class="text-[11px] font-mono text-slate-500 bg-slate-100 px-3 py-1 rounded-md flex items-center gap-1.5">
+                  <i class="fa-solid fa-terminal text-slate-400"></i> gloace-engine-v3.0
+                </div>
+              </div>
+
+              <!-- Live Architecture Status Card -->
+              <div class="space-y-4">
+                <div class="bg-slate-900 text-slate-200 rounded-xl p-4 font-mono text-xs space-y-2 border border-slate-800">
+                  <p class="text-slate-400">// Initializing Gloace Zoho & Cloud Sync...</p>
+                  <p class="text-amber-400"><span class="text-brand-400">const</span> partner = "Gloace Technologies";</p>
+                  <p class="text-cyan-300"><span class="text-brand-400">const</span> domain = "www.gloacetechnologies.com";</p>
+                  <p class="text-emerald-400"><span class="text-brand-400">const</span> zohoModules = ["CRM", "Creator", "Books", "Analytics"];</p>
+                  <p class="text-brand-300">GloaceCore.deploySync("<span class="text-emerald-300">Enterprise-Ready</span>");</p>
+                  <p class="text-emerald-400 font-semibold">✓ Custom Deluge & RESTful Webhooks Online</p>
+                </div>
+
+                <!-- KPI Metric Counters -->
+                <div class="grid grid-cols-2 gap-3 pt-2">
+                  <div class="p-3.5 rounded-xl bg-white border border-slate-200 shadow-sm">
+                    <p class="text-2xl font-extrabold text-brand-600">120+</p>
+                    <p class="text-xs text-slate-500 font-bold uppercase tracking-wider">Deployments</p>
+                  </div>
+                  <div class="p-3.5 rounded-xl bg-white border border-slate-200 shadow-sm">
+                    <p class="text-2xl font-extrabold text-amber-600">100%</p>
+                    <p class="text-xs text-slate-500 font-bold uppercase tracking-wider">Zoho Certified</p>
+                  </div>
+                </div>
+
+                <div class="p-3 rounded-xl bg-amber-50 border border-amber-200/80 flex items-center justify-between text-xs">
+                  <div class="flex items-center gap-2 text-amber-900 font-bold">
+                    <i class="fa-solid fa-circle-check text-amber-600"></i>
+                    <span>Official Partner Tier:</span>
+                  </div>
+                  <span class="font-extrabold text-amber-800 uppercase tracking-wide">
+                    Authorized Zoho Partner
+                  </span>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Float Tag -->
+            <div class="absolute -bottom-5 -right-3 bg-white p-3.5 rounded-xl shadow-xl border border-slate-200 flex items-center gap-3">
+              <div class="w-10 h-10 rounded-lg bg-brand-50 text-brand-600 flex items-center justify-center text-lg">
+                <i class="fa-solid fa-laptop-code"></i>
+              </div>
+              <div>
+                <p class="text-xs font-bold text-slate-900">Custom Engineering</p>
+                <p class="text-[11px] text-slate-500">Gloace Proprietary Stack</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Metric Bar -->
+  <section class="border-y border-slate-200 bg-white py-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div>
+          <div class="text-3xl md:text-4xl font-extrabold text-slate-900">10+</div>
+          <p class="text-xs md:text-sm font-bold text-slate-500 uppercase tracking-wider mt-1">Years Industry Expertise</p>
+        </div>
+        <div>
+          <div class="text-3xl md:text-4xl font-extrabold text-amber-600">Zoho</div>
+          <p class="text-xs md:text-sm font-bold text-slate-500 uppercase tracking-wider mt-1">Authorized Partner</p>
+        </div>
+        <div>
+          <div class="text-3xl md:text-4xl font-extrabold text-slate-900">99.9%</div>
+          <p class="text-xs md:text-sm font-bold text-slate-500 uppercase tracking-wider mt-1">SLA System Uptime</p>
+        </div>
+        <div>
+          <div class="text-3xl md:text-4xl font-extrabold text-brand-600">80+</div>
+          <p class="text-xs md:text-sm font-bold text-slate-500 uppercase tracking-wider mt-1">Global Business Clients</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dedicated Zoho Partner Solutions Section -->
+  <section id="zoho" class="py-24 bg-gradient-to-b from-white to-amber-50/40 border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-extrabold tracking-wide uppercase bg-amber-100 text-amber-800 border border-amber-200">
+          <i class="fa-solid fa-award"></i> Authorized Zoho Partner
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+          Specialized Zoho Implementation & Customization
+        </h2>
+        <p class="text-slate-600 text-base sm:text-lg">
+          As an Authorized Zoho Partner, Gloace Technologies plans, architects, writes custom Deluge logic, and deploys scalable Zoho suites for modern enterprises.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <!-- Zoho Card 1: Zoho Creator -->
+        <div class="bg-white rounded-2xl p-8 border border-amber-200 shadow-card hover:shadow-xl hover:-translate-y-1 transition duration-300 flex flex-col justify-between relative overflow-hidden group">
+          <div class="absolute top-0 right-0 w-24 h-24 bg-amber-500/10 rounded-bl-full pointer-events-none group-hover:scale-110 transition-transform"></div>
+          <div>
+            <div class="w-14 h-14 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-2xl mb-6">
+              <i class="fa-solid fa-shapes"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 mb-2">Zoho Creator Custom Apps</h3>
+            <p class="text-sm text-slate-600 leading-relaxed mb-6">
+              Bespoke low-code application development tailored to your exact operational workflows, multi-departmental approval hierarchies, and relational schemas.
+            </p>
+            <ul class="space-y-2 text-xs text-slate-600 mb-6 font-medium">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-600"></i> Complex Deluge Scripting & Workflows</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-600"></i> Custom Portal Creation for Clients</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-600"></i> Real-time Database Relationships</li>
+            </ul>
+          </div>
+          <button onclick="openServiceDetail('Zoho Creator Custom Applications')" class="text-xs font-bold uppercase tracking-wider text-amber-700 hover:text-amber-900 flex items-center gap-1.5">
+            <span>Explore Creator Services</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+
+        <!-- Zoho Card 2: Zoho CRM & Sales Pipeline -->
+        <div class="bg-white rounded-2xl p-8 border border-slate-200 shadow-card hover:shadow-xl hover:-translate-y-1 transition duration-300 flex flex-col justify-between relative overflow-hidden group">
+          <div class="absolute top-0 right-0 w-24 h-24 bg-blue-500/10 rounded-bl-full pointer-events-none group-hover:scale-110 transition-transform"></div>
+          <div>
+            <div class="w-14 h-14 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center text-2xl mb-6">
+              <i class="fa-solid fa-chart-pie"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 mb-2">Zoho CRM & Automation</h3>
+            <p class="text-sm text-slate-600 leading-relaxed mb-6">
+              End-to-end CRM setup, Blueprint configuration, lead qualification scoring, omnichannel marketing integration, and Zia AI automated recommendations.
+            </p>
+            <ul class="space-y-2 text-xs text-slate-600 mb-6 font-medium">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-blue-600"></i> Blueprint Workflow & Process Mapping</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-blue-600"></i> Omnichannel Lead Funnel Integration</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-blue-600"></i> Pipeline Analytics & Forecasting</li>
+            </ul>
+          </div>
+          <button onclick="openServiceDetail('Zoho CRM Configuration & Pipelines')" class="text-xs font-bold uppercase tracking-wider text-blue-600 hover:text-blue-800 flex items-center gap-1.5">
+            <span>Explore CRM Services</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+
+        <!-- Zoho Card 3: Zoho One Deployment -->
+        <div class="bg-white rounded-2xl p-8 border border-slate-200 shadow-card hover:shadow-xl hover:-translate-y-1 transition duration-300 flex flex-col justify-between relative overflow-hidden group">
+          <div class="absolute top-0 right-0 w-24 h-24 bg-emerald-500/10 rounded-bl-full pointer-events-none group-hover:scale-110 transition-transform"></div>
+          <div>
+            <div class="w-14 h-14 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-2xl mb-6">
+              <i class="fa-solid fa-cubes"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 mb-2">Zoho One All-in-One Suite</h3>
+            <p class="text-sm text-slate-600 leading-relaxed mb-6">
+              Unified enterprise operating system rollout. Connecting Finance (Books, Inventory), HR (People, Recruit), and Support (Desk) into a single cohesive platform.
+            </p>
+            <ul class="space-y-2 text-xs text-slate-600 mb-6 font-medium">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-600"></i> Centralized User & Role Governance</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-600"></i> Cross-App Data Synchronization</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-600"></i> Cost-Optimized Enterprise Licensing</li>
+            </ul>
+          </div>
+          <button onclick="openServiceDetail('Zoho One Enterprise Deployment')" class="text-xs font-bold uppercase tracking-wider text-emerald-600 hover:text-emerald-800 flex items-center gap-1.5">
+            <span>Explore Zoho One</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+
+        <!-- Zoho Card 4: Zoho Books & Finance -->
+        <div class="bg-white rounded-2xl p-8 border border-slate-200 shadow-card hover:shadow-xl hover:-translate-y-1 transition duration-300 flex flex-col justify-between">
+          <div>
+            <div class="w-14 h-14 rounded-xl bg-teal-100 text-teal-600 flex items-center justify-center text-2xl mb-6">
+              <i class="fa-solid fa-file-invoice-dollar"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 mb-2">Zoho Books & ERP Integration</h3>
+            <p class="text-sm text-slate-600 leading-relaxed mb-6">
+              Automate billing, recurring invoicing, multi-currency accounting, and payment gateways with compliance-ready tax and financial reporting.
+            </p>
+            <ul class="space-y-2 text-xs text-slate-600 mb-6 font-medium">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-teal-600"></i> Automated Invoicing & Reconciliation</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-teal-600"></i> Inventory & Purchase Order Tracking</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-teal-600"></i> Payment Gateway Webhook Binding</li>
+            </ul>
+          </div>
+          <button onclick="openServiceDetail('Zoho Books & Financial Automation')" class="text-xs font-bold uppercase tracking-wider text-teal-600 hover:text-teal-800 flex items-center gap-1.5">
+            <span>Learn More</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+
+        <!-- Zoho Card 5: Zoho Analytics & BI -->
+        <div class="bg-white rounded-2xl p-8 border border-slate-200 shadow-card hover:shadow-xl hover:-translate-y-1 transition duration-300 flex flex-col justify-between">
+          <div>
+            <div class="w-14 h-14 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center text-2xl mb-6">
+              <i class="fa-solid fa-chart-line"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 mb-2">Zoho Analytics & Executive BI</h3>
+            <p class="text-sm text-slate-600 leading-relaxed mb-6">
+              Interactive executive dashboards, automated KPI alert triggers, cross-functional data blending, and predictive trend modeling.
+            </p>
+            <ul class="space-y-2 text-xs text-slate-600 mb-6 font-medium">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-600"></i> Custom Executive KPI Boards</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-600"></i> Multi-Source SQL Data Blending</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-600"></i> Automated Executive Email Dispatches</li>
+            </ul>
+          </div>
+          <button onclick="openServiceDetail('Zoho Analytics & BI Solutions')" class="text-xs font-bold uppercase tracking-wider text-purple-600 hover:text-purple-800 flex items-center gap-1.5">
+            <span>Learn More</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+
+        <!-- Zoho Card 6: Custom APIs & Third-Party Integrations -->
+        <div class="bg-white rounded-2xl p-8 border border-slate-200 shadow-card hover:shadow-xl hover:-translate-y-1 transition duration-300 flex flex-col justify-between">
+          <div>
+            <div class="w-14 h-14 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center text-2xl mb-6">
+              <i class="fa-solid fa-plug"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 mb-2">Third-Party & API Integrations</h3>
+            <p class="text-sm text-slate-600 leading-relaxed mb-6">
+              Bi-directional integrations bridging your Zoho ecosystem with custom React apps, PostgreSQL, Stripe, WhatsApp Business, and custom legacy systems.
+            </p>
+            <ul class="space-y-2 text-xs text-slate-600 mb-6 font-medium">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-rose-600"></i> RESTful Zoho API & Webhooks</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-rose-600"></i> WhatsApp & SMS Notifications</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-rose-600"></i> Secure Token & OAuth Orchestration</li>
+            </ul>
+          </div>
+          <button onclick="openServiceDetail('Zoho API & Custom Integrations')" class="text-xs font-bold uppercase tracking-wider text-rose-600 hover:text-rose-800 flex items-center gap-1.5">
+            <span>Learn More</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Software Engineering Services Section -->
+  <section id="services" class="py-24 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+        <span class="px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wide uppercase bg-brand-100 text-brand-700">
+          Full-Stack Capabilities
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+          Custom Software Engineering Services
+        </h2>
+        <p class="text-slate-600 text-base sm:text-lg">
+          Complementing our Zoho implementations with proprietary full-stack web, cloud, and mobile development.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        
+        <!-- Service 1 -->
+        <div class="bg-white rounded-2xl p-8 border border-slate-200/90 shadow-card hover:shadow-xl hover:-translate-y-1 transition duration-300 flex flex-col justify-between">
+          <div>
+            <div class="w-14 h-14 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center text-2xl mb-6">
+              <i class="fa-solid fa-code"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 mb-3">Custom Web Application Development</h3>
+            <p class="text-sm text-slate-600 leading-relaxed mb-6">
+              Scalable, resilient web apps built with modern React, Next.js, and Node.js. Optimized for ultra-fast performance, rock-solid security, and responsive UI.
+            </p>
+            <ul class="space-y-2 text-xs text-slate-600 mb-6 font-medium">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-brand-600"></i> High-traffic Portals & SaaS</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-brand-600"></i> Single-Page Applications & PWAs</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-brand-600"></i> Headless Microservices Architecture</li>
+            </ul>
+          </div>
+          <button onclick="openServiceDetail('Custom Web Application Development')" class="text-xs font-bold uppercase tracking-wider text-brand-600 hover:text-brand-800 flex items-center gap-1.5">
+            <span>Technical Scope</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+
+        <!-- Service 2 -->
+        <div class="bg-white rounded-2xl p-8 border border-slate-200/90 shadow-card hover:shadow-xl hover:-translate-y-1 transition duration-300 flex flex-col justify-between">
+          <div>
+            <div class="w-14 h-14 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-2xl mb-6">
+              <i class="fa-solid fa-mobile-screen"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 mb-3">Mobile & POS Solutions</h3>
+            <p class="text-sm text-slate-600 leading-relaxed mb-6">
+              Cross-platform mobile applications on Flutter and React Native alongside point-of-sale systems tailored for inventory and transactional operations.
+            </p>
+            <ul class="space-y-2 text-xs text-slate-600 mb-6 font-medium">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-indigo-600"></i> iOS & Android Native/Hybrid Apps</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-indigo-600"></i> POS Billing & Warehouse Sync</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-indigo-600"></i> Offline-First Sync Mechanisms</li>
+            </ul>
+          </div>
+          <button onclick="openServiceDetail('Mobile & POS Solutions')" class="text-xs font-bold uppercase tracking-wider text-brand-600 hover:text-brand-800 flex items-center gap-1.5">
+            <span>Technical Scope</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+
+        <!-- Service 3 -->
+        <div class="bg-white rounded-2xl p-8 border border-slate-200/90 shadow-card hover:shadow-xl hover:-translate-y-1 transition duration-300 flex flex-col justify-between">
+          <div>
+            <div class="w-14 h-14 rounded-xl bg-cyan-50 text-cyan-600 flex items-center justify-center text-2xl mb-6">
+              <i class="fa-solid fa-cloud-arrow-up"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 mb-3">Cloud Infrastructure & DevOps</h3>
+            <p class="text-sm text-slate-600 leading-relaxed mb-6">
+              Cloud orchestration on AWS, Azure, and Google Cloud. Automated CI/CD pipelines, containerization with Docker, and 24/7 disaster recovery architectures.
+            </p>
+            <ul class="space-y-2 text-xs text-slate-600 mb-6 font-medium">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-cyan-600"></i> AWS & Azure Auto-Scaling Clusters</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-cyan-600"></i> Docker & Kubernetes Deployment</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-cyan-600"></i> End-to-End Enterprise Encryption</li>
+            </ul>
+          </div>
+          <button onclick="openServiceDetail('Cloud Infrastructure & DevOps')" class="text-xs font-bold uppercase tracking-wider text-brand-600 hover:text-brand-800 flex items-center gap-1.5">
+            <span>Technical Scope</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Enterprise AI & Automation Section -->
+  <section id="solutions" class="py-24 bg-slate-950 text-white relative overflow-hidden">
+    <div class="absolute -top-40 -left-40 w-96 h-96 bg-brand-600/15 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -bottom-40 -right-40 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-16 gap-6">
+        <div class="max-w-2xl space-y-3">
+          <span class="px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider bg-brand-500/20 text-brand-400 border border-brand-500/30">
+            Intelligent Automation
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">
+            AI-Driven Intelligence & Custom Machine Learning
+          </h2>
+          <p class="text-slate-400 text-base">
+            Powering organizations with predictive insights, autonomous customer support agents, and seamless automated data processing.
+          </p>
+        </div>
+        <a href="#contact" class="self-start lg:self-end px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-bold uppercase tracking-wider flex items-center gap-2 transition">
+          <span>Consult AI Architect</span>
+          <i class="fa-solid fa-arrow-right text-xs"></i>
+        </a>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        
+        <div class="bg-slate-900/90 rounded-2xl p-7 border border-slate-800 hover:border-brand-500/50 transition">
+          <div class="w-12 h-12 rounded-xl bg-brand-500/20 text-brand-400 flex items-center justify-center text-xl mb-5">
+            <i class="fa-solid fa-brain"></i>
+          </div>
+          <h3 class="text-lg font-bold mb-2">Custom LLM & Chatbot Integration</h3>
+          <p class="text-sm text-slate-400 leading-relaxed mb-4">
+            Bespoke natural language agents capable of answering complex inquiries, parsing internal documents, and triggering backend actions.
+          </p>
+          <div class="pt-4 border-t border-slate-800 text-xs text-brand-400 font-bold flex items-center gap-1.5">
+            <i class="fa-solid fa-check"></i> Enterprise Vector Databases & RAG
+          </div>
+        </div>
+
+        <div class="bg-slate-900/90 rounded-2xl p-7 border border-slate-800 hover:border-amber-500/50 transition">
+          <div class="w-12 h-12 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xl mb-5">
+            <i class="fa-solid fa-gears"></i>
+          </div>
+          <h3 class="text-lg font-bold mb-2">Robotic Process Automation (RPA)</h3>
+          <p class="text-sm text-slate-400 leading-relaxed mb-4">
+            Eliminating repetitive manual labor with bots that automate data entry, invoice extraction, cross-database syncing, and verification.
+          </p>
+          <div class="pt-4 border-t border-slate-800 text-xs text-amber-400 font-bold flex items-center gap-1.5">
+            <i class="fa-solid fa-check"></i> Multi-System Automated Pipelines
+          </div>
+        </div>
+
+        <div class="bg-slate-900/90 rounded-2xl p-7 border border-slate-800 hover:border-emerald-500/50 transition">
+          <div class="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl mb-5">
+            <i class="fa-solid fa-chart-simple"></i>
+          </div>
+          <h3 class="text-lg font-bold mb-2">Predictive Business Analytics</h3>
+          <p class="text-sm text-slate-400 leading-relaxed mb-4">
+            Data models that evaluate historical sales, supply fluctuations, and customer behavior to forecast demand with high statistical confidence.
+          </p>
+          <div class="pt-4 border-t border-slate-800 text-xs text-emerald-400 font-bold flex items-center gap-1.5">
+            <i class="fa-solid fa-check"></i> Accurate Decision Forecasting
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Modern Tech Stack Explorer -->
+  <section id="stack" class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-12 space-y-3">
+        <span class="px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-brand-100 text-brand-700">
+          Core Toolset
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+          Enterprise Technology Ecosystem
+        </h2>
+        <p class="text-slate-600 text-base">
+          Certified Zoho tooling paired with leading frameworks and high-performance cloud providers.
+        </p>
+      </div>
+
+      <!-- Filter Buttons -->
+      <div class="flex flex-wrap items-center justify-center gap-2 mb-10" id="techFilters">
+        <button onclick="filterTech('all')" class="tech-tab active-tab px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition bg-brand-600 text-white shadow-sm" data-category="all">All Tech</button>
+        <button onclick="filterTech('zoho')" class="tech-tab px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition bg-slate-100 text-slate-600 hover:bg-slate-200" data-category="zoho">Zoho Ecosystem</button>
+        <button onclick="filterTech('frontend')" class="tech-tab px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition bg-slate-100 text-slate-600 hover:bg-slate-200" data-category="frontend">Frontend & Mobile</button>
+        <button onclick="filterTech('backend')" class="tech-tab px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition bg-slate-100 text-slate-600 hover:bg-slate-200" data-category="backend">Backend & DB</button>
+        <button onclick="filterTech('cloud')" class="tech-tab px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition bg-slate-100 text-slate-600 hover:bg-slate-200" data-category="cloud">Cloud & DevOps</button>
+      </div>
+
+      <!-- Tech Cards Grid -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4" id="techGrid">
+        
+        <!-- Zoho Creator -->
+        <div class="tech-item zoho p-5 rounded-2xl border-2 border-amber-300 bg-amber-50/50 hover:bg-white hover:border-amber-500 hover:shadow-md transition text-center group">
+          <div class="text-3xl text-amber-600 mb-2 group-hover:scale-110 transition-transform"><i class="fa-solid fa-shapes"></i></div>
+          <h4 class="text-xs font-bold text-slate-900">Zoho Creator</h4>
+          <p class="text-[10px] text-amber-700 font-bold mt-1">Authorized Partner</p>
+        </div>
+
+        <!-- Zoho CRM -->
+        <div class="tech-item zoho p-5 rounded-2xl border-2 border-amber-300 bg-amber-50/50 hover:bg-white hover:border-amber-500 hover:shadow-md transition text-center group">
+          <div class="text-3xl text-blue-600 mb-2 group-hover:scale-110 transition-transform"><i class="fa-solid fa-users-gear"></i></div>
+          <h4 class="text-xs font-bold text-slate-900">Zoho CRM</h4>
+          <p class="text-[10px] text-amber-700 font-bold mt-1">Pipeline & Zia AI</p>
+        </div>
+
+        <!-- Zoho Deluge Scripting -->
+        <div class="tech-item zoho backend p-5 rounded-2xl border-2 border-amber-300 bg-amber-50/50 hover:bg-white hover:border-amber-500 hover:shadow-md transition text-center group">
+          <div class="text-3xl text-red-500 mb-2 group-hover:scale-110 transition-transform"><i class="fa-solid fa-code"></i></div>
+          <h4 class="text-xs font-bold text-slate-900">Deluge Scripting</h4>
+          <p class="text-[10px] text-amber-700 font-bold mt-1">Custom Logic & APIs</p>
+        </div>
+
+        <!-- React.js -->
+        <div class="tech-item frontend p-5 rounded-2xl border border-slate-200/80 bg-slate-50/50 hover:bg-white hover:border-brand-500/40 hover:shadow-md transition text-center group">
+          <div class="text-3xl text-cyan-500 mb-2 group-hover:scale-110 transition-transform"><i class="fa-brands fa-react"></i></div>
+          <h4 class="text-xs font-bold text-slate-900">React.js</h4>
+          <p class="text-[10px] text-slate-500 mt-1">Modern Web Apps</p>
+        </div>
+
+        <!-- Node.js -->
+        <div class="tech-item backend p-5 rounded-2xl border border-slate-200/80 bg-slate-50/50 hover:bg-white hover:border-brand-500/40 hover:shadow-md transition text-center group">
+          <div class="text-3xl text-emerald-600 mb-2 group-hover:scale-110 transition-transform"><i class="fa-brands fa-node-js"></i></div>
+          <h4 class="text-xs font-bold text-slate-900">Node.js</h4>
+          <p class="text-[10px] text-slate-500 mt-1">Scalable REST APIs</p>
+        </div>
+
+        <!-- Python -->
+        <div class="tech-item backend p-5 rounded-2xl border border-slate-200/80 bg-slate-50/50 hover:bg-white hover:border-brand-500/40 hover:shadow-md transition text-center group">
+          <div class="text-3xl text-amber-500 mb-2 group-hover:scale-110 transition-transform"><i class="fa-brands fa-python"></i></div>
+          <h4 class="text-xs font-bold text-slate-900">Python</h4>
+          <p class="text-[10px] text-slate-500 mt-1">Data & Microservices</p>
+        </div>
+
+        <!-- Flutter -->
+        <div class="tech-item frontend p-5 rounded-2xl border border-slate-200/80 bg-slate-50/50 hover:bg-white hover:border-brand-500/40 hover:shadow-md transition text-center group">
+          <div class="text-3xl text-sky-500 mb-2 group-hover:scale-110 transition-transform"><i class="fa-solid fa-mobile"></i></div>
+          <h4 class="text-xs font-bold text-slate-900">Flutter</h4>
+          <p class="text-[10px] text-slate-500 mt-1">iOS & Android</p>
+        </div>
+
+        <!-- PostgreSQL / Mongo -->
+        <div class="tech-item backend p-5 rounded-2xl border border-slate-200/80 bg-slate-50/50 hover:bg-white hover:border-brand-500/40 hover:shadow-md transition text-center group">
+          <div class="text-3xl text-indigo-500 mb-2 group-hover:scale-110 transition-transform"><i class="fa-solid fa-database"></i></div>
+          <h4 class="text-xs font-bold text-slate-900">PostgreSQL / SQL</h4>
+          <p class="text-[10px] text-slate-500 mt-1">Relational Databases</p>
+        </div>
+
+        <!-- AWS Cloud -->
+        <div class="tech-item cloud p-5 rounded-2xl border border-slate-200/80 bg-slate-50/50 hover:bg-white hover:border-brand-500/40 hover:shadow-md transition text-center group">
+          <div class="text-3xl text-orange-500 mb-2 group-hover:scale-110 transition-transform"><i class="fa-brands fa-aws"></i></div>
+          <h4 class="text-xs font-bold text-slate-900">AWS & Cloud</h4>
+          <p class="text-[10px] text-slate-500 mt-1">Elastic Clusters</p>
+        </div>
+
+        <!-- Docker -->
+        <div class="tech-item cloud p-5 rounded-2xl border border-slate-200/80 bg-slate-50/50 hover:bg-white hover:border-brand-500/40 hover:shadow-md transition text-center group">
+          <div class="text-3xl text-blue-500 mb-2 group-hover:scale-110 transition-transform"><i class="fa-brands fa-docker"></i></div>
+          <h4 class="text-xs font-bold text-slate-900">Docker & K8s</h4>
+          <p class="text-[10px] text-slate-500 mt-1">Containerization</p>
+        </div>
+
+        <!-- TypeScript -->
+        <div class="tech-item frontend backend p-5 rounded-2xl border border-slate-200/80 bg-slate-50/50 hover:bg-white hover:border-brand-500/40 hover:shadow-md transition text-center group">
+          <div class="text-3xl text-blue-600 mb-2 group-hover:scale-110 transition-transform"><i class="fa-brands fa-js"></i></div>
+          <h4 class="text-xs font-bold text-slate-900">TypeScript</h4>
+          <p class="text-[10px] text-slate-500 mt-1">Strict Type Systems</p>
+        </div>
+
+        <!-- Zoho One Suite -->
+        <div class="tech-item zoho p-5 rounded-2xl border-2 border-amber-300 bg-amber-50/50 hover:bg-white hover:border-amber-500 hover:shadow-md transition text-center group">
+          <div class="text-3xl text-emerald-600 mb-2 group-hover:scale-110 transition-transform"><i class="fa-solid fa-cube"></i></div>
+          <h4 class="text-xs font-bold text-slate-900">Zoho One</h4>
+          <p class="text-[10px] text-amber-700 font-bold mt-1">Complete Enterprise OS</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Case Studies -->
+  <section id="projects" class="py-24 bg-slate-50 border-t border-slate-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+        <div>
+          <span class="px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-brand-100 text-brand-700">
+            Proven Outcomes
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mt-3">
+            Real-World Impact & Deliveries
+          </h2>
+        </div>
+        <p class="text-slate-500 max-w-md text-sm font-normal">
+          A track record of high-impact Zoho and custom software deployments designed for sustainable operational scale.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <!-- Case 1: Custom Zoho Creator ERP -->
+        <div class="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col">
+          <div class="p-6 bg-gradient-to-br from-amber-700 to-amber-950 text-white relative">
+            <div class="flex items-center justify-between text-xs mb-3">
+              <span class="px-2.5 py-1 rounded-md bg-amber-500/30 text-amber-100 font-mono font-bold">Zoho Creator · Deluge</span>
+              <span class="text-amber-200 font-bold"><i class="fa-solid fa-check text-[10px] mr-1"></i> Partner Certified</span>
+            </div>
+            <h3 class="text-xl font-bold tracking-tight">Enterprise Operations ERP on Zoho</h3>
+            <p class="text-xs text-amber-200 mt-1">Multi-branch inventory, procurement, and staff workflow portal</p>
+          </div>
+          <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Designed an end-to-end operational engine replacing manual spreadsheets with automated purchase approvals, multi-location stock reconciliation, and instant dispatch notifications.
+            </p>
+            <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
+              <span class="text-emerald-600 font-bold"><i class="fa-solid fa-chart-line mr-1"></i> +55% Task Velocity</span>
+              <span class="text-slate-400 font-semibold">Gloace Delivery</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Case 2: Custom Modern Web Platform -->
+        <div class="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col">
+          <div class="p-6 bg-gradient-to-br from-brand-900 to-indigo-950 text-white relative">
+            <div class="flex items-center justify-between text-xs mb-3">
+              <span class="px-2.5 py-1 rounded-md bg-brand-500/30 text-brand-200 font-mono font-bold">React · Node · AWS</span>
+              <span class="text-slate-300 font-medium"><i class="fa-solid fa-cloud text-[10px] mr-1"></i> Cloud Native</span>
+            </div>
+            <h3 class="text-xl font-bold tracking-tight">High-Throughput SaaS Portal</h3>
+            <p class="text-xs text-slate-300 mt-1">Secure customer onboarding and billing gateway</p>
+          </div>
+          <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Engineered a high-performance customer portal processing encrypted financial transactions, automated PDF statement generation, and role-based client administration.
+            </p>
+            <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
+              <span class="text-emerald-600 font-bold"><i class="fa-solid fa-bolt mr-1"></i> Sub-second Latency</span>
+              <span class="text-slate-400 font-semibold">Gloace Delivery</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Case 3: Zoho CRM Pipeline & WhatsApp Sync -->
+        <div class="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col">
+          <div class="p-6 bg-gradient-to-br from-slate-900 to-blue-950 text-white relative">
+            <div class="flex items-center justify-between text-xs mb-3">
+              <span class="px-2.5 py-1 rounded-md bg-blue-500/30 text-blue-200 font-mono font-bold">Zoho CRM · Webhooks</span>
+              <span class="text-blue-300 font-medium"><i class="fa-solid fa-bolt text-[10px] mr-1"></i> Automated</span>
+            </div>
+            <h3 class="text-xl font-bold tracking-tight">Omnichannel CRM Automation Hub</h3>
+            <p class="text-xs text-blue-200 mt-1">Lead routing, scoring, and automated communications</p>
+          </div>
+          <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Integrated inbound website leads with Zoho CRM via custom webhooks, triggering instant WhatsApp updates, sales reps lead assignment, and automated reminder sequences.
+            </p>
+            <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
+              <span class="text-emerald-600 font-bold"><i class="fa-solid fa-arrow-trend-up mr-1"></i> 3.2x Lead Response Rate</span>
+              <span class="text-slate-400 font-semibold">Gloace Delivery</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 4-Step Engineering Methodology -->
+  <section id="methodology" class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+        <span class="px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-brand-100 text-brand-700">
+          Delivery Lifecycle
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+          Agile 4-Phase Delivery Framework
+        </h2>
+        <p class="text-slate-600 text-base">
+          From business requirements to certified deployment, our structured methodology guarantees clarity at every milestone.
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        
+        <div class="relative p-6 rounded-2xl bg-slate-50 border border-slate-200">
+          <div class="w-12 h-12 rounded-xl bg-brand-600 text-white font-extrabold text-lg flex items-center justify-center mb-5 shadow-md shadow-brand-500/20">
+            01
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 mb-2">Discovery & Zoho Audit</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Evaluating operational bottlenecks, existing data architectures, software licenses, and defining precise sprint deliverables.
+          </p>
+        </div>
+
+        <div class="relative p-6 rounded-2xl bg-slate-50 border border-slate-200">
+          <div class="w-12 h-12 rounded-xl bg-brand-600 text-white font-extrabold text-lg flex items-center justify-center mb-5 shadow-md shadow-brand-500/20">
+            02
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 mb-2">Schema & Prototype</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Designing entity relationship diagrams, database schemas, Zoho Deluge workflows, and clickable interface prototypes.
+          </p>
+        </div>
+
+        <div class="relative p-6 rounded-2xl bg-slate-50 border border-slate-200">
+          <div class="w-12 h-12 rounded-xl bg-brand-600 text-white font-extrabold text-lg flex items-center justify-center mb-5 shadow-md shadow-brand-500/20">
+            03
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 mb-2">Agile Engineering</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Rapid iterative sprints with continuous code reviews, unit testing, Zoho sandbox deployment, and regular stakeholder feedback.
+          </p>
+        </div>
+
+        <div class="relative p-6 rounded-2xl bg-slate-50 border border-slate-200">
+          <div class="w-12 h-12 rounded-xl bg-brand-600 text-white font-extrabold text-lg flex items-center justify-center mb-5 shadow-md shadow-brand-500/20">
+            04
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 mb-2">Production & Support</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Zero-downtime go-live, corporate staff onboarding sessions, detailed documentation, and ongoing enterprise SLA support.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Inquiry & Project Estimator -->
+  <section id="contact" class="py-24 bg-gradient-to-b from-slate-50 to-brand-50/50 border-t border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-12 gap-12 items-start">
+        
+        <!-- Contact Information Card -->
+        <div class="lg:col-span-5 space-y-8">
+          <div>
+            <span class="px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-brand-100 text-brand-700">
+              Get In Touch
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mt-3">
+              Let's Architect Your Next Digital Solution.
+            </h2>
+            <p class="text-slate-600 text-sm mt-3 leading-relaxed">
+              Connect directly with our senior Zoho certified consultants and software architects. We provide transparent estimates, rapid turnaround, and robust confidentiality.
+            </p>
+          </div>
+
+          <!-- Direct Coordinates -->
+          <div class="space-y-4">
+            <div class="p-4 rounded-xl bg-white border border-slate-200 shadow-sm flex items-start gap-4">
+              <div class="w-10 h-10 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
+                <i class="fa-solid fa-award"></i>
+              </div>
+              <div>
+                <h4 class="text-xs font-bold text-slate-900">Partnership Status</h4>
+                <p class="text-xs text-slate-600 mt-0.5">Authorized Zoho Partner · Custom Deluge & Creator Implementations</p>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-white border border-slate-200 shadow-sm flex items-start gap-4">
+              <div class="w-10 h-10 rounded-lg bg-brand-50 text-brand-600 flex items-center justify-center shrink-0">
+                <i class="fa-solid fa-globe"></i>
+              </div>
+              <div>
+                <h4 class="text-xs font-bold text-slate-900">Official Web Portal</h4>
+                <a href="https://www.gloacetechnologies.com" target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-brand-600 hover:text-brand-700 mt-0.5 inline-flex items-center gap-1.5 transition">
+                  <span>www.gloacetechnologies.com</span>
+                  <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                </a>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-white border border-slate-200 shadow-sm flex items-start gap-4">
+              <div class="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+                <i class="fa-solid fa-envelope"></i>
+              </div>
+              <div>
+                <h4 class="text-xs font-bold text-slate-900">Direct Inquiries</h4>
+                <p class="text-xs text-slate-600 mt-0.5">contact@gloacetechnologies.com · info@gloacetechnologies.com</p>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-white border border-slate-200 shadow-sm flex items-start gap-4">
+              <div class="w-10 h-10 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
+                <i class="fa-solid fa-location-dot"></i>
+              </div>
+              <div>
+                <h4 class="text-xs font-bold text-slate-900">Gloace Technologies Office</h4>
+                <p class="text-xs text-slate-600 mt-0.5">Enterprise Software Development & Zoho Consulting Headquarters</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Accordion item -->
+          <div class="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-sm space-y-2">
+            <h4 class="text-xs font-bold text-slate-900 flex items-center gap-2">
+              <i class="fa-solid fa-circle-question text-brand-600"></i>
+              Can Gloace migrate our existing system to Zoho?
+            </h4>
+            <p class="text-xs text-slate-500 leading-relaxed">
+              Yes. We specialize in seamless data cleansing, migration from legacy spreadsheets/CRMs into Zoho, and building custom bi-directional sync pipelines.
+            </p>
+          </div>
+        </div>
+
+        <!-- Consultation & Quote Form -->
+        <div class="lg:col-span-7">
+          <div class="bg-white rounded-2xl p-8 sm:p-10 border border-slate-200 shadow-card">
+            <h3 class="text-xl font-bold text-slate-900 mb-2">Request Technical Proposal</h3>
+            <p class="text-xs text-slate-500 mb-6">Fill in your requirements below and our certified architects will reply within 24 business hours.</p>
+
+            <form id="consultationForm" onsubmit="handleFormSubmit(event)" class="space-y-5">
+              
+              <div class="grid sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-semibold text-slate-700 mb-1.5" for="fullName">Full Name *</label>
+                  <input type="text" id="fullName" required placeholder="Alex Morgan" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none transition">
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold text-slate-700 mb-1.5" for="emailAddress">Work Email *</label>
+                  <input type="email" id="emailAddress" required placeholder="alex@company.com" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none transition">
+                </div>
+              </div>
+
+              <div class="grid sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-semibold text-slate-700 mb-1.5" for="serviceSelect">Required Solution *</label>
+                  <select id="serviceSelect" required class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none transition bg-white">
+                    <option value="Zoho Creator Custom Application">Zoho Creator Custom Application</option>
+                    <option value="Zoho CRM & Sales Automation">Zoho CRM & Sales Automation</option>
+                    <option value="Zoho One Enterprise Rollout">Zoho One Enterprise Rollout</option>
+                    <option value="Custom Web Platform (React/Node)">Custom Web Platform (React/Node)</option>
+                    <option value="Mobile App Development">Mobile App Development</option>
+                    <option value="Enterprise AI & Automation">Enterprise AI & Automation</option>
+                    <option value="Cloud Infrastructure & DevOps">Cloud Infrastructure & DevOps</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold text-slate-700 mb-1.5" for="timelineSelect">Target Timeline</label>
+                  <select id="timelineSelect" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none transition bg-white">
+                    <option value="Immediate (< 1 Month)">Immediate (&lt; 1 Month)</option>
+                    <option value="Standard (1 - 3 Months)">Standard (1 - 3 Months)</option>
+                    <option value="Enterprise Planning (3 - 6 Months)">Enterprise Planning (3 - 6 Months)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1.5" for="projectScope">Project Overview & Objectives *</label>
+                <textarea id="projectScope" rows="4" required placeholder="Describe your current business workflow, target goals, or Zoho integrations needed..." class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none transition"></textarea>
+              </div>
+
+              <!-- NDA Checkbox -->
+              <div class="flex items-center gap-2">
+                <input type="checkbox" id="ndaCheck" class="rounded text-brand-600 focus:ring-brand-500 w-4 h-4">
+                <label for="ndaCheck" class="text-xs text-slate-600 cursor-pointer">
+                  Request Mutual Non-Disclosure Agreement (NDA) before detailed discovery
+                </label>
+              </div>
+
+              <!-- Submit Button -->
+              <button type="submit" id="submitBtn" class="w-full py-3.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs uppercase tracking-wider transition shadow-lg shadow-brand-500/25 hover:shadow-brand-500/40 flex items-center justify-center gap-2">
+                <i class="fa-solid fa-paper-plane text-xs"></i>
+                <span>Submit Technical Inquiry</span>
+              </button>
+
+              <div class="text-center pt-2">
+                <span class="text-[11px] text-slate-400">
+                  <i class="fa-solid fa-lock text-[10px] mr-1"></i> Data handled with enterprise confidentiality under Gloace Technologies data policy.
+                </span>
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-slate-950 text-slate-400 pt-16 pb-12 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-slate-800">
+        
+        <!-- Brand column -->
+        <div class="space-y-4">
+          <div class="flex items-center gap-2.5">
+            <div class="w-9 h-9 rounded-lg bg-brand-600 flex items-center justify-center text-white text-base">
+              <i class="fa-solid fa-cubes-stacked"></i>
+            </div>
+            <span class="text-xl font-extrabold text-white">Gloace<span class="text-brand-500">Technologies</span></span>
+          </div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Enterprise software development, full-cycle web engineering, and Authorized Zoho Partner implementations delivering sustainable digital transformation.
+          </p>
+          <div class="flex flex-col sm:flex-row items-start sm:items-center gap-2">
+            <a href="https://www.gloacetechnologies.com" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 hover:text-white text-xs font-mono transition">
+              <i class="fa-solid fa-link text-brand-400 text-[10px]"></i>
+              <span>www.gloacetechnologies.com</span>
+            </a>
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-bold uppercase tracking-wider">
+              <i class="fa-solid fa-award"></i>
+              <span>Authorized Zoho Partner</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Col 2: Zoho Solutions -->
+        <div class="space-y-3">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-white">Zoho Solutions</h4>
+          <ul class="space-y-2 text-xs">
+            <li><a href="#zoho" class="hover:text-white transition">Zoho Creator Applications</a></li>
+            <li><a href="#zoho" class="hover:text-white transition">Zoho CRM & Automations</a></li>
+            <li><a href="#zoho" class="hover:text-white transition">Zoho One Deployment</a></li>
+            <li><a href="#zoho" class="hover:text-white transition">Deluge Scripting & APIs</a></li>
+            <li><a href="#zoho" class="hover:text-white transition">Zoho Books & Finance</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Software Services -->
+        <div class="space-y-3">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-white">Software Services</h4>
+          <ul class="space-y-2 text-xs">
+            <li><a href="#services" class="hover:text-white transition">Custom Web Applications</a></li>
+            <li><a href="#services" class="hover:text-white transition">Mobile Apps (Flutter & React Native)</a></li>
+            <li><a href="#services" class="hover:text-white transition">Cloud Architecture & DevOps</a></li>
+            <li><a href="#solutions" class="hover:text-white transition">Enterprise AI & LLM Systems</a></li>
+            <li><a href="#stack" class="hover:text-white transition">Microservices & API Security</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Quick Contact -->
+        <div class="space-y-3">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-white">Connect</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Ready to plan your next Zoho implementation or custom software project? Speak with our team.
+          </p>
+          <a href="#contact" class="inline-flex items-center gap-2 text-xs font-bold text-brand-400 hover:text-brand-300 pt-1">
+            <span>Initiate Project Consultation</span>
+            <i class="fa-solid fa-arrow-right text-[10px]"></i>
+          </a>
+        </div>
+
+      </div>
+
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+        <p>&copy; <span id="currentYear"></span> <a href="https://www.gloacetechnologies.com" class="text-slate-400 hover:text-white font-semibold">Gloace Technologies</a>. All rights reserved. Authorized Zoho Partner.</p>
+        <div class="flex items-center gap-6">
+          <a href="https://www.gloacetechnologies.com" class="hover:text-white transition">www.gloacetechnologies.com</a>
+          <a href="#contact" class="hover:text-white transition">Privacy Policy</a>
+          <a href="#contact" class="hover:text-white transition">Terms of Service</a>
+          <a href="#contact" class="hover:text-white transition">Security Compliance</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Service Detail Modal (Safe in-page UI dialog, avoiding alerts) -->
+  <div id="serviceModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-slate-200 relative transform transition-all">
+      <button onclick="closeServiceModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 p-2 rounded-xl hover:bg-slate-100">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+      <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-xl mb-4" id="modalIcon">
+        <i class="fa-solid fa-award"></i>
+      </div>
+      <h3 class="text-xl font-bold text-slate-900 mb-2" id="modalTitle">Service Specification</h3>
+      <p class="text-xs text-slate-600 leading-relaxed mb-6" id="modalDescription">
+        Detailed technical breakdown and enterprise service level parameters.
+      </p>
+      <div class="bg-slate-50 rounded-xl p-4 border border-slate-200 mb-6 space-y-2 text-xs">
+        <div class="flex items-center justify-between font-semibold text-slate-700">
+          <span>Execution Partner:</span>
+          <span class="text-amber-600 font-bold">Gloace Technologies (Authorized Zoho Partner)</span>
+        </div>
+        <div class="flex items-center justify-between font-semibold text-slate-700">
+          <span>Deployment Models:</span>
+          <span class="text-brand-600 font-bold">Zoho Cloud / Hybrid / AWS Cloud</span>
+        </div>
+        <div class="flex items-center justify-between font-semibold text-slate-700">
+          <span>Quality Standard:</span>
+          <span class="text-emerald-600 font-bold">Enterprise SLA & Code Review</span>
+        </div>
+      </div>
+      <div class="flex items-center justify-end gap-3">
+        <button onclick="closeServiceModal()" class="px-4 py-2 rounded-xl border border-slate-200 text-xs font-bold text-slate-600 hover:bg-slate-50">
+          Close
+        </button>
+        <a href="#contact" onclick="closeServiceModal()" class="px-5 py-2 rounded-xl bg-brand-600 text-white text-xs font-bold uppercase tracking-wider hover:bg-brand-700 shadow-sm">
+          Discuss This Service
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Initialize current year dynamically
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    // Mobile Navigation Toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Close mobile menu when link clicked
+    document.querySelectorAll('.mobile-nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+      });
+    });
+
+    // Tech Stack Filtering
+    function filterTech(category) {
+      const tabs = document.querySelectorAll('.tech-tab');
+      tabs.forEach(tab => {
+        if (tab.getAttribute('data-category') === category) {
+          tab.classList.add('bg-brand-600', 'text-white', 'shadow-sm');
+          tab.classList.remove('bg-slate-100', 'text-slate-600');
+        } else {
+          tab.classList.remove('bg-brand-600', 'text-white', 'shadow-sm');
+          tab.classList.add('bg-slate-100', 'text-slate-600');
+        }
+      });
+
+      const items = document.querySelectorAll('.tech-item');
+      items.forEach(item => {
+        if (category === 'all' || item.classList.contains(category)) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+
+    // Custom Toast Notification System (Replaces browser alert completely)
+    let toastTimeout;
+    function showToast(title, message, isSuccess = true) {
+      const toast = document.getElementById('toastMessage');
+      const toastTitle = document.getElementById('toastTitle');
+      const toastBody = document.getElementById('toastBody');
+      const toastIcon = document.getElementById('toastIcon');
+
+      toastTitle.textContent = title;
+      toastBody.textContent = message;
+
+      if (isSuccess) {
+        toastIcon.className = "w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0";
+        toastIcon.innerHTML = '<i class="fa-solid fa-check"></i>';
+      } else {
+        toastIcon.className = "w-8 h-8 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center shrink-0";
+        toastIcon.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i>';
+      }
+
+      toast.classList.remove('translate-y-[-120%]', 'opacity-0', 'pointer-events-none');
+      toast.classList.add('translate-y-0', 'opacity-100', 'pointer-events-auto');
+
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        hideToast();
+      }, 5000);
+    }
+
+    function hideToast() {
+      const toast = document.getElementById('toastMessage');
+      toast.classList.add('translate-y-[-120%]', 'opacity-0', 'pointer-events-none');
+      toast.classList.remove('translate-y-0', 'opacity-100', 'pointer-events-auto');
+    }
+
+    // Consultation Form Submission Handling
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      const submitBtn = document.getElementById('submitBtn');
+      const fullName = document.getElementById('fullName').value.trim();
+      const service = document.getElementById('serviceSelect').value;
+
+      // Temporary loading indicator on button
+      const originalHtml = submitBtn.innerHTML;
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-xs"></i> <span>Transmitting Inquiry...</span>';
+
+      setTimeout(() => {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalHtml;
+        document.getElementById('consultationForm').reset();
+        
+        // Show success notification safely without native alert()
+        showToast(
+          "Inquiry Received", 
+          `Thank you ${fullName}! Your inquiry for ${service} has been submitted directly to the Gloace Technologies solutions team.`
+        );
+      }, 1200);
+    }
+
+    // Safe Service Detail Modal
+    function openServiceDetail(serviceName) {
+      const modal = document.getElementById('serviceModal');
+      const title = document.getElementById('modalTitle');
+      const desc = document.getElementById('modalDescription');
+
+      title.textContent = serviceName;
+      desc.textContent = `Gloace Technologies delivers turnkey enterprise engineering and customization for ${serviceName}. As an Authorized Zoho Partner and software solutions firm, our scope covers data modeling, custom Deluge/API integrations, automated testing, and post-launch maintenance.`;
+
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeServiceModal() {
+      const modal = document.getElementById('serviceModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    // Close modal on background click
+    document.getElementById('serviceModal').addEventListener('click', (e) => {
+      if (e.target.id === 'serviceModal') {
+        closeServiceModal();
+      }
+    });
+  </script>
+</body>
+</html>
